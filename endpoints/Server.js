@@ -22,12 +22,13 @@ class ServerEndpoint extends Endpoint {
     }
 
     async _postServer(req, res) {
-        const { players, serverId } = req.body;
-        console.log(req.body);
+        const { players, serverId, version } = req.body;
+        console.log(req.body); //eslint-disable-line no-console
         let server = this.client.intercom.servers.get(serverId);
         if(!server) {
             server = new Server(this.client, {
-                id: serverId
+                id: serverId,
+                version
             });
             this.client.intercom.servers.set(serverId, server);
         }

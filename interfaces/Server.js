@@ -37,11 +37,11 @@ class Server {
 
     }
 
-    async _banUser(user, infraction) {
+    async _banUser(user, infraction) { //eslint-disable-line 
         //send api request to ban user from game
     }
 
-    async _kickUser(user, infraction) {
+    async _kickUser(user, infraction) { //eslint-disable-line
         //send api request to kick user from game
     }
 

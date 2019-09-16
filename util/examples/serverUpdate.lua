@@ -3,10 +3,12 @@ local Players = game:getService('Players');
 local delay = 15;
 
 local actions = {
-    KICK = function(player)
-        player:Kick("You were banned from the game.");
+    KICK = function(player, infraction)
+        local date = "meme";
+        local length = "blah";
+        player:Kick("You were banned from the game for ".. infraction.reason .." on ".. date ..". Your ban will last ".. length .." days.");
         end,
-    KICK = function(player)
+    KICK = function(player, infraction)
         player:Kick("You were kicked from the game.");
         end,
     MUTE = function(player)
