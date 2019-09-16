@@ -1,4 +1,4 @@
-class User {
+class Player {
 
     constructor(client, opts = {}) {
 
@@ -31,4 +31,4 @@ class User {
 
 }
 
-module.exports = User;
+module.exports = Player;

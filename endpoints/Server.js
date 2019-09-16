@@ -1,4 +1,4 @@
-const { Endpoint, Server, User } = require('../interfaces');
+const { Endpoint, Server } = require('../interfaces');
 
 class ServerEndpoint extends Endpoint {
 
@@ -10,7 +10,7 @@ class ServerEndpoint extends Endpoint {
         });
 
         this.routes = [
-            ['put', this._putServer.bind(this)]
+            ['post', this._postServer.bind(this)]
         ];
 
         this._handleRoutes();
@@ -21,7 +21,7 @@ class ServerEndpoint extends Endpoint {
 
     }
 
-    async _putServer(req, res) {
+    async _postServer(req, res) {
         const { players, serverId } = req.body;
         let server = this.client.intercom.servers.get(serverId);
         if(!server) {
@@ -30,7 +30,10 @@ class ServerEndpoint extends Endpoint {
             });
             this.client.intercom.servers.set(serverId, server);
         }
-        server._ping = new Date().getTime();
+        server.update(players);
+        res.send({
+            actions: server.queue
+        });
     }
 
 

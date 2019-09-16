@@ -4,6 +4,7 @@
     "chalk": "^2.4.2",
     "express": "^4.17.1",
     "joi": "^14.3.1",
+    "jshint": "^2.10.2",
     "moment": "^2.24.0",
     "rethinkdbdash": "^2.3.31"
   },

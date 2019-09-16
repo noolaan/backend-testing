@@ -1,6 +1,6 @@
 module.exports = {
     Endpoint: require('./Endpoint.js'),
     Server: require('./Server.js'),
-    User: require('./User.js'),
+    Player: require('./Player.js'),
     Infraction: require('./Infraction.js')
 };

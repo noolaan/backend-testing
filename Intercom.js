@@ -1,11 +1,12 @@
-const { Server } = require('./interfaces/');
+const Collection = require('./util/Collection.js');
+const { Server, Player } = require('./interfaces/');
 
 class Intercom {
 
     constructor(client) {
 
-        this.servers = new Map();
-        this.users = new Map();
+        this.servers = new Collection();
+        this.players = new Collection();
 
         Object.defineProperty(this, 'client', {
             value: client
@@ -13,27 +14,17 @@ class Intercom {
 
     }
 
-    async _addUser(data) {
-        let user = null;
-        if(this.users.has(data.id)) {
-            this.client.logger.error('user joined a new server without leaving one... hello???');
-            return undefined;
-        } else {
-            user = await this.client.storageManager.tables.users.grab(data.id);
-            this.users.set(user.id, user);
-        }
+    async addPlayer(data, server) {
 
-        if(this.servers.has(data.serverId)) {
-            this.servers.users.set(user.id, user);
-        } else {
-            const server = new Server(this.client, { 
-                id: data.serverId,
-                users: new Map([[user.id, user]])
-            });
-            this.servers.set(data.serverId, server);
-        }
+        const player = new Player(this.client, {
+            ...data,
+            server
+        });
+        
+        this.players.set(player.id, player);
 
-        return user;
+        let result = await this.client.storageManager.tables.users.get(player.id);
+        if(!result) result = await this.client.storageManager.tables.users.set(player.id, player.json());
 
     }
 
