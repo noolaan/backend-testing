@@ -23,6 +23,7 @@ class ServerEndpoint extends Endpoint {
 
     async _postServer(req, res) {
         const { players, serverId } = req.body;
+        console.log(req.body);
         let server = this.client.intercom.servers.get(serverId);
         if(!server) {
             server = new Server(this.client, {
