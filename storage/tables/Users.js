@@ -16,6 +16,15 @@ class UsersTable extends Table {
 
     }
 
+    async grabLatestBan(target) {
+        try {
+            return await this._index.filter({ target, type: 'BAN' }).orderBy(this.r.desc('case')).limit(1);
+        } catch(error) {
+            this._error(error);
+        }
+
+    }
+
 }
 
 module.exports = UsersTable;

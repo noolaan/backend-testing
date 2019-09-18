@@ -6,7 +6,7 @@ class UserEndpoint extends Endpoint {
 
         super(client, {
             id: 'user',
-            path: '/api/user'
+            path: '/api/user/:id'
         });
 
         this.routes = [
@@ -18,12 +18,19 @@ class UserEndpoint extends Endpoint {
     }
 
     async _getUser(req, res) {
-        const user = await this.client.storageManager.tables.users.get(req.body.id);
+        const id = req.params.id;
+        const user = await this.client.storageManager.tables.users.get(id);
         if(!user) {
-            
+            //idfk
         }
 
-        return res.send(user.json());
+        let data = { user };
+        if(user.banned) {
+            const infraction = await this.client.storageManager.tables.users.grabLatestBan(id);
+            data.infraction = infraction;
+        }
+
+        return res.send(data);
     }
 
 }
