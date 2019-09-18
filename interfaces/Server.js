@@ -20,9 +20,15 @@ class Server {
         for(const player of players) {
             if(this.players.has(player.id)) continue; //already in same server since last ping
             else { //joined server since last ping
+                console.log('updating new player')
                 let intercomPlayer = this.client.intercom.players.get(player.id);
-                if(intercomPlayer) intercomPlayer.server = this; //update server if user exists
-                else intercomPlayer = await this.client.intercom.addPlayer(player, this);
+                if(intercomPlayer) {
+                    console.log('updating server for player')
+                    intercomPlayer.server = this; //update server if user exists
+                } else {
+                    console.log('adding player')
+                    intercomPlayer = await this.client.intercom.addPlayer(player, this);
+                }
                 intercomPlayer._ping = this._ping;
             }
         }

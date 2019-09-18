@@ -26,6 +26,8 @@ class Intercom {
         let result = await this.client.storageManager.tables.users.get(player.id);
         if(!result) result = await this.client.storageManager.tables.users.set(player.id, player.json());
 
+        console.log(result);
+
         return player;
 
     }
