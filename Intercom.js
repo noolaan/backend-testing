@@ -13,8 +13,9 @@ class Intercom {
         });
 
         setInterval(() => {
-            console.log(this.servers);
-        }, 15000);
+            console.log(this.servers.first()._ping);
+            console.log(this.servers.first().lastPinged);
+        }, 5000);
 
     }
 

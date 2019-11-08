@@ -31,7 +31,6 @@ class ServerEndpoint extends Endpoint {
                 version
             });
             this.client.intercom.servers.set(serverId, server);
-            console.log(`added new server: ${serverId}`);
         }
         server.update(players);
         res.send({

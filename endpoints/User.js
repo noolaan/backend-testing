@@ -29,8 +29,8 @@ class UserEndpoint extends Endpoint {
         //     const infraction = await this.client.storageManager.tables.users.grabLatestBan(id);
         //     data.infraction = infraction;
         // }
-
-        return res.send(data);
+        // 
+        // return res.send(data);
     }
 
 }
