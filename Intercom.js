@@ -13,8 +13,10 @@ class Intercom {
         });
 
         setInterval(() => {
-            console.log(this.servers.first()._ping);
-            console.log(this.servers.first().lastPinged);
+            const server = this.servers.first();
+            if(server) {
+                console.log(server._ping, server.lastPinged);
+            }
         }, 5000);
 
     }
