@@ -1,4 +1,4 @@
-const Joi = require('Joi');
+const Joi = require('@hapi/joi');
 
 const { MethodTypes } = require('../util/Constants.js');
 

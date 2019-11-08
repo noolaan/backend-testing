@@ -12,6 +12,10 @@ class Intercom {
             value: client
         });
 
+        setInterval(() => {
+            console.log(this.servers);
+        }, 15000);
+
     }
 
     async addPlayer(data, server) {
@@ -22,11 +26,10 @@ class Intercom {
         });
         
         this.players.set(player.id, player);
+        console.log("player", player);
 
         let result = await this.client.storageManager.tables.users.get(player.id);
         if(!result) result = await this.client.storageManager.tables.users.set(player.id, player.json());
-
-        console.log(result);
 
         return player;
 

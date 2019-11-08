@@ -24,7 +24,6 @@ class Player {
         return {
             id: this.id,
             username: this.username,
-            serverId: this.server,
             banned: this.banned
         };
     }
