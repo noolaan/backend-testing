@@ -24,11 +24,11 @@ class UserEndpoint extends Endpoint {
             //idfk
         }
 
-        let data = { user };
-        if(user.banned) {
-            const infraction = await this.client.storageManager.tables.users.grabLatestBan(id);
-            data.infraction = infraction;
-        }
+        // let data = { user };
+        // if(user.banned) {
+        //     const infraction = await this.client.storageManager.tables.users.grabLatestBan(id);
+        //     data.infraction = infraction;
+        // }
 
         return res.send(data);
     }
