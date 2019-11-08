@@ -57,19 +57,5 @@ const Constants = {
         DEBUG: 0xc573d1,
         ERROR: 0xe56060,
         SUCCESS: 0x6ccf69
-    },
-    Embed: {
-        SUCCESS: {
-            Title: 'CONNECT',
-            Description: 'Shard is connected to the websocket.'
-        },
-        WARN: {
-            Title: 'RECONNECT',
-            Description: 'Shard is reconnecting to the websocket.'
-        },
-        ERROR: {
-            Title: 'DISCONNECT',
-            Description: 'Shard was disconnected from the websocket.'
-        }
     }
 };

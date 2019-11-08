@@ -18,21 +18,25 @@ class Server {
     async update(players) {
         this._ping = new Date().getTime();
         for(const player of players) {
-            if(this.players.has(player.id)) continue; //already in same server since last ping
-            else { //joined server since last ping
-                console.log('updating new player')
-                let intercomPlayer = this.client.intercom.players.get(player.id);
-                if(intercomPlayer) {
-                    console.log('updating server for player')
-                    intercomPlayer.server = this; //update server if user exists
-                } else {
-                    console.log('adding player')
-                    intercomPlayer = await this.client.intercom.addPlayer(player, this);
+            let intercomPlayer = this.client.intercom.players.get(player.id);
+            if(intercomPlayer) {
+                console.log(`updating server for player: ${player.username}`); //eslint-disable-line no-console
+                if(intercomPlayer.server.id !== player.serverId) { //update server if server doesnt match
+                    intercomPlayer.server = this;
                 }
-                intercomPlayer._ping = this._ping;
+            } else {
+                console.log(`adding player: ${player.username}`); //eslint-disable-line no-console
+                intercomPlayer = await this.client.intercom.addPlayer(player, this);
             }
+            intercomPlayer._ping = this._ping;
         }
-        //TODO: Remove players from playerlist based on ping.
+
+        //remove players if they didnt get pinged
+        this.players.filter(p=>p._ping !== this._ping).map((player) => {
+            console.log(`removing player: ${player.username}`); //eslint-disable-line no-console
+            this.client.intercom.players.delete(player.id);
+        });
+
     }
 
     async announce() {
@@ -40,7 +44,7 @@ class Server {
     }
 
     async shutdown() {
-
+        
     }
 
     async _banUser(user, infraction) { //eslint-disable-line 

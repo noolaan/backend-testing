@@ -51,7 +51,7 @@ local function recurse()
 	local info = HttpService:JSONDecode(response);
 	infractions = {}; --clear infractions so it wont send twice
 	print(info);
-    for _,action in pairs(info.actions) do
+	for _,action in pairs(info.actions) do
 		--execute internal actions (ban from webpanel, etc)
 		print(action);
 	end
