@@ -1,6 +1,8 @@
 const Collection = require('./util/Collection.js');
 const { Server, Player } = require('./interfaces/');
 
+const delay = 60000; //delay for updating information
+
 class Intercom {
 
     constructor(client) {
@@ -12,12 +14,7 @@ class Intercom {
             value: client
         });
 
-        setInterval(() => {
-            const server = this.servers.first();
-            if(server) {
-                console.log(server._ping, server.lastPinged);
-            }
-        }, 5000);
+        setInterval(this._updateServers, delay);
 
     }
 
@@ -35,6 +32,22 @@ class Intercom {
         if(!result) result = await this.client.storageManager.tables.users.set(player.id, player.json());
 
         return player;
+
+    }
+
+    async _updateServers() {
+
+        const deadServers = this.servers.filter(s=>s.lastPinged > 40000); //no ping in over 40 seconds, missed two pings (30s)
+        for(const server of deadServers.values()) {
+            for(let player of server.players.values()) {
+                if(player.server.id === server.id) {
+                    console.log("found player in dead server, purging");
+                    this.players.delete(player.id);
+                }
+            }
+            console.log("found dead server, purging");
+            this.servers.delete(server.id);
+        }
 
     }
 
