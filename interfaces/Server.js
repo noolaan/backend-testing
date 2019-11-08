@@ -21,7 +21,7 @@ class Server {
             let intercomPlayer = this.client.intercom.players.get(player.id);
             if(intercomPlayer) {
                 console.log(`updating server for player: ${player.username}`); //eslint-disable-line no-console
-                if(intercomPlayer.server.id !== player.serverId) { //update server if server doesnt match
+                if(intercomPlayer.server.id !== this.id) { //update server if server doesnt match
                     intercomPlayer.server = this;
                 }
             } else {
