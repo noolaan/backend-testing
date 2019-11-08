@@ -14,7 +14,9 @@ class Intercom {
             value: client
         });
 
-        setInterval(this._updateServers, delay);
+        setInterval(async () => {
+            await this._updateServers();
+        }, delay);
 
     }
 
@@ -36,7 +38,6 @@ class Intercom {
     }
 
     async _updateServers() {
-
         const deadServers = this.servers.filter(s=>s.lastPinged > 40000); //no ping in over 40 seconds, missed two pings (30s)
         for(const server of deadServers.values()) {
             for(let player of server.players.values()) {
@@ -48,7 +49,6 @@ class Intercom {
             console.log("found dead server, purging");
             this.servers.delete(server.id);
         }
-
     }
 
 }
